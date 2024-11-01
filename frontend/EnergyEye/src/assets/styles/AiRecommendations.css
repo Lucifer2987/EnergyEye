@@ -1,0 +1,35 @@
+.ai-bar {
+    padding: 20px;
+    /* background-color: red; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.ai-heading {
+    margin: 10px;
+    margin-bottom: 30px;
+}
+#ai-img {
+    height: 40px;
+    position: relative;
+    top: 8px;
+    margin-right: 5px;
+}
+.ai-messages {
+    border: 1px solid linear;
+    border-radius: 30px;
+    padding: 18px 30px;
+    /* background-color: #AAAAAA; */
+    background-color: #f0f8ff;
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 17px;
+}
+#ai-messages {
+    /* background: -webkit-linear-gradient(#eee, #333); */
+    background: -webkit-linear-gradient(135deg, #5c2ebc, #0072ff, #0095ff);
+    /* linear-gradient(135deg, #5c2ebc, #0072ff, #00c6ff) */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

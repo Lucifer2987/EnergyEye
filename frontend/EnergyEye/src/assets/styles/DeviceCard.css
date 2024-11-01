@@ -1,0 +1,63 @@
+.card {
+    border-radius: 30px;
+    padding: 16px;
+    height: fit-content;
+    width: 380px;
+    /* width: auto; */
+    /* box-shadow: 2px 3px 10px rgba(103, 215, 229, 0.5); */
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: #131D1E; */
+    background-color: #AAAAAA;
+}
+.device-control {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 50px;
+    margin-top: 10px;
+    align-items: center;
+}
+.device-info {
+    display: block;
+}
+.image {
+    width: 50px;
+    height: auto;
+    border-radius: 4px;
+}
+.title {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #f7eded;
+}
+.energy {
+    font-size: 20px;
+    color: #555;
+    text-align: center;
+}
+.toggle {
+    border: none;
+    border-radius: 50%;
+    padding-top: 3px;
+    margin: 4px 5px;
+    width: 50px;
+    height: 50px;
+    background-color: #67D7E5;
+    box-shadow: 0px 0px 15px rgba(103, 215, 229, 0.5);
+
+    cursor: pointer;
+    transition: all 0.3s, box-shadow 0.3s;
+}
+.toggle.active {
+    background-color: gray;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.toggle.active > svg {
+    fill: white;
+}
+.toggle:hover {
+    opacity: 0.5;
+}
