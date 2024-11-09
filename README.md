@@ -2,6 +2,9 @@
 
 **EnergyEye** is a cloud-based energy monitoring and saving application designed to help users track actual energy consumption and minimize their carbon footprint. This innovative project integrates IoT-enabled smart home sensors with AI-driven algorithms to analyze real-time data, including electricity usage, appliance efficiency, and environmental conditions.
 
+<img width="1470" alt="EnergyEye Dashboard" src="https://github.com/user-attachments/assets/680e3090-aa0a-4b67-89a4-4838acb892fc">
+<img width="1470" alt="AI Suggestion" src="https://github.com/user-attachments/assets/7b78d5d4-64d4-47aa-a3e0-20128ec69cf3">
+
 ## Features
 
 - **Real-Time Monitoring**: Tracks energy consumption in real-time using IoT-enabled smart home sensors.
