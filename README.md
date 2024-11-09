@@ -43,7 +43,7 @@ To get started with EnergyEye, follow these steps:
 
 3. **Run the Application:**:
    ```sh
-   npm start
+   npm run dev
 
 4. **Set Up IoT Sensors**: Connect the IoT-enabled smart home sensors to start collecting data.
 5. **Access the Dashboard**: Navigate to the web interface to access real-time data, insights, and recommendations.
