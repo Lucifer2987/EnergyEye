@@ -1,37 +1,33 @@
-// import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import DeviceCard from './components/DeviceCard.jsx';
+import NavigationBar from './components/NavigationBar.jsx';
+import Chatbot from './components/Chatbot.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import Energy from './pages/Energy.jsx';
+import Devices from './pages/Devices.jsx';
+import Goals from './pages/Goals.jsx';
+import AISuggestions from './pages/AISuggestions.jsx';
+import Settings from './pages/Settings.jsx';
 
 function App() {
-	return (
-		<>
-		<div className='home'>
-			<div className='total-energy'>
-				
-			</div>
-			<div className='device-control-panel'>
-				<DeviceCard 
-				deviceImage="/src/assets/images/washing_machine.png"
-				deviceName="Washing Machine"
-				roomName="Living Room"
-				energyConsumed={5.2}
-				/>
-				<DeviceCard 
-				deviceImage="/src/assets/images/washing_machine.png"
-				deviceName="Washing Machine"
-				roomName="Living Room"
-				energyConsumed={5.2}
-				/>
-				<DeviceCard 
-				deviceImage="/src/assets/images/washing_machine.png"
-				deviceName="Washing Machine"
-				roomName="Living Room"
-				energyConsumed={5.2}
-				/>
-			</div>
-		</div>
-		</>
-	);
-};
+  return (
+    <BrowserRouter>
+      <div className='app-layout'>
+        <NavigationBar />
+        <main className='main-content'>
+          <Routes>
+            <Route path='/'            element={<Dashboard />} />
+            <Route path='/energy'      element={<Energy />} />
+            <Route path='/devices'     element={<Devices />} />
+            <Route path='/goals'       element={<Goals />} />
+            <Route path='/suggestions' element={<AISuggestions />} />
+            <Route path='/settings'    element={<Settings />} />
+          </Routes>
+        </main>
+        <Chatbot />
+      </div>
+    </BrowserRouter>
+  );
+}
 
-export default App
+export default App;

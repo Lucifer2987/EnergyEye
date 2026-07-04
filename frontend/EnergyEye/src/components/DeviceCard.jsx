@@ -1,34 +1,73 @@
 import React, { useState } from 'react';
-import '../assets/styles/DeviceCard.css';
-import Svg from './Svg.jsx';
+import { Power, Wifi, WifiOff } from 'lucide-react';
+import './DeviceCard.css';
 
-function DeviceCard({ deviceImage, deviceName, roomName, energyConsumed }) {
-    const [isOn, setIsOn] = useState(false);
-
-    const handleToggle = () => {
-        setIsOn(!isOn);
-    };
-
-    return (
-        <div className='card'>
-            <div className='device-control'>
-                <img src={deviceImage} alt={deviceName} className='image' />
-                <div className='device-info'>
-                    <h2 className='title'>{roomName}</h2>
-                    <h2 className='title'>{deviceName}</h2>
-                </div>
-                <button
-                    className={`toggle ${isOn ? 'active' : ''}`}
-                    onClick={handleToggle}
-                >
-                    <Svg color={isOn ? 'white' : 'black'} />
-                </button>
-            </div>
-            <div className='energy'>
-                <p>Energy Consumed: {energyConsumed} kWh</p>
-            </div>
-        </div>
-    );
+const deviceIcons = {
+  'Washing Machine': '🫧',
+  'Air Conditioner': '❄️',
+  'Refrigerator': '🧊',
+  'Television': '📺',
+  'Water Heater': '🚿',
+  'Microwave': '📡',
+  'Dishwasher': '🍽️',
+  'Lighting': '💡',
+  'default': '🔌',
 };
+
+function DeviceCard({ deviceImage, deviceName, roomName, energyConsumed, isConnected = true, wattage = 0 }) {
+  const [isOn, setIsOn] = useState(false);
+
+  const emoji = deviceIcons[deviceName] || deviceIcons['default'];
+
+  return (
+    <div className={`device-card ${isOn ? 'device-card--on' : ''}`}>
+      <div className='device-card__header'>
+        <div className='device-card__icon-wrap'>
+          {deviceImage
+            ? <img src={deviceImage} alt={deviceName} className='device-card__img' />
+            : <span className='device-card__emoji'>{emoji}</span>
+          }
+        </div>
+        <div className='device-card__status'>
+          {isConnected
+            ? <Wifi size={14} color='var(--accent-green)' />
+            : <WifiOff size={14} color='var(--text-muted)' />
+          }
+        </div>
+      </div>
+
+      <div className='device-card__info'>
+        <h3 className='device-card__name'>{deviceName}</h3>
+        <p className='device-card__room'>{roomName}</p>
+      </div>
+
+      <div className='device-card__stats'>
+        <div className='device-card__stat'>
+          <span className='device-card__stat-value'>{energyConsumed}</span>
+          <span className='device-card__stat-label'>kWh today</span>
+        </div>
+        {wattage > 0 && (
+          <div className='device-card__stat'>
+            <span className='device-card__stat-value'>{wattage}W</span>
+            <span className='device-card__stat-label'>now</span>
+          </div>
+        )}
+      </div>
+
+      <div className='device-card__footer'>
+        <span className={`device-card__state-label ${isOn ? 'on' : 'off'}`}>
+          {isOn ? 'ON' : 'OFF'}
+        </span>
+        <button
+          className={`device-card__toggle ${isOn ? 'active' : ''}`}
+          onClick={() => setIsOn(!isOn)}
+          aria-label={`Toggle ${deviceName}`}
+        >
+          <Power size={18} />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default DeviceCard;
