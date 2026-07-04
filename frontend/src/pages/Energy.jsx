@@ -3,11 +3,39 @@ import { Zap, TrendingUp, BarChart2 } from 'lucide-react';
 import { EnergyAreaChart, EnergyBarChart, MultiLineChart } from '../components/EnergyChart.jsx';
 import '../assets/styles/shared.css';
 
-const daily7 = [
-  { time: 'Mon', usage: 18.4 }, { time: 'Tue', usage: 21.2 }, { time: 'Wed', usage: 16.7 },
-  { time: 'Thu', usage: 23.5 }, { time: 'Fri', usage: 19.8 }, { time: 'Sat', usage: 27.3 },
-  { time: 'Sun', usage: 24.1 },
-];
+/* ── Multi-period trend data ─────────────── */
+const TREND_DATA = {
+  '24H': [
+    { time: '12AM', usage: 1.2 }, { time: '3AM',  usage: 0.7 },
+    { time: '6AM',  usage: 1.5 }, { time: '9AM',  usage: 3.2 },
+    { time: '12PM', usage: 4.1 }, { time: '3PM',  usage: 3.5 },
+    { time: '6PM',  usage: 4.9 }, { time: '9PM',  usage: 5.1 },
+    { time: '12AM', usage: 2.1 },
+  ],
+  '7D': [
+    { time: 'Mon', usage: 18.4 }, { time: 'Tue', usage: 21.2 },
+    { time: 'Wed', usage: 16.7 }, { time: 'Thu', usage: 23.5 },
+    { time: 'Fri', usage: 19.8 }, { time: 'Sat', usage: 27.3 },
+    { time: 'Sun', usage: 24.1 },
+  ],
+  '30D': [
+    { time: 'W1',  usage: 115 }, { time: 'W2', usage: 134 },
+    { time: 'W3',  usage: 121 }, { time: 'W4', usage: 141 },
+  ],
+  '3M': [
+    { time: 'Apr', usage: 490 }, { time: 'May', usage: 521 },
+    { time: 'Jun', usage: 478 },
+  ],
+};
+
+const STATS_BY_PERIOD = {
+  '24H': { total: '11.2 kWh', vs: '-8%',    avg: '0.93 kWh' },
+  '7D':  { total: '111 kWh',  vs: '+12.3%', avg: '15.9 kWh' },
+  '30D': { total: '511 kWh',  vs: '+3.1%',  avg: '17.0 kWh' },
+  '3M':  { total: '1,489 kWh',vs: '-2.4%',  avg: '16.5 kWh' },
+};
+
+
 const roomData = [
   { room: 'Living Room', usage: 32 }, { room: 'Kitchen',     usage: 21 },
   { room: 'Bedroom',     usage: 14 }, { room: 'Bathroom',    usage: 18 },
@@ -32,6 +60,7 @@ const deviceBreakdown = [
 
 function Energy() {
   const [period, setPeriod] = useState('7D');
+  const stats = STATS_BY_PERIOD[period];
 
   return (
     <div className='page-container'>
@@ -47,13 +76,14 @@ function Energy() {
         </div>
       </div>
 
-      {/* Summary pills */}
+      {/* Summary pills — update with period */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 'var(--space-xl)', flexWrap: 'wrap' }}>
         {[
-          { icon: Zap,        label: 'Total this week',     val: '111.0 kWh', color: '#4f6ef7' },
-          { icon: TrendingUp, label: 'vs previous week',    val: '+12.3%',    color: '#ff6b6b' },
-          { icon: BarChart2,  label: 'Daily avg',           val: '15.9 kWh',  color: '#39d98a' },
+          { icon: Zap,        label: `Total (${period})`,      val: stats.total, color: '#4f6ef7' },
+          { icon: TrendingUp, label: 'vs previous period',     val: stats.vs,    color: stats.vs.startsWith('-') ? '#39d98a' : '#ff6b6b' },
+          { icon: BarChart2,  label: 'Avg per unit',           val: stats.avg,   color: '#39d98a' },
         ].map(({ icon: Icon, label, val, color }) => (
+
           <div key={label} style={{
             background: 'var(--bg-card)', border: '1px solid var(--border)',
             borderRadius: 'var(--radius-xl)', padding: '14px 20px',
@@ -73,12 +103,14 @@ function Energy() {
         <div className='chart-card'>
           <div className='chart-card__header'>
             <div>
-              <p className='chart-card__title'>Daily Usage Trend</p>
-              <p className='chart-card__sub'>kWh per day this week</p>
+              <p className='chart-card__title'>Usage Trend</p>
+              <p className='chart-card__sub'>
+                {period === '24H' ? 'Hourly today' : period === '7D' ? 'Daily this week' : period === '30D' ? 'Weekly this month' : 'Monthly (3M)'}
+              </p>
             </div>
           </div>
           <div className='chart-card__body'>
-            <EnergyAreaChart data={daily7} dataKey='usage' color='#00f5d4' />
+            <EnergyAreaChart data={TREND_DATA[period]} dataKey='usage' color='#00f5d4' />
           </div>
         </div>
         <div className='chart-card'>
